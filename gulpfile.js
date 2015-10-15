@@ -110,6 +110,7 @@ gulp.task('css', function() {
     return gulp.src(path.scss)
         .pipe(plugin.sass())
         .pipe(plugin.autoprefixer(option.autoprefixer))
+        .pipe(isProduction ? plugin.minifyCss() : plugin.util.noop())
         .pipe(gulp.dest(basepath.dist + '/css'))
 });
 

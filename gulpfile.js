@@ -4,7 +4,8 @@
 
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    jshint = require('gulp-jshint');
+    jshint = require('gulp-jshint'),
+    imagemin = require('gulp-imagemin');
 
 // =============================================
 // Paths
@@ -49,7 +50,11 @@ var option = {
         'opera 12.1',
         'ios 6',
         'android 4'
-    ]
+    ],
+    imageopt: {
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}]
+    }
 };
 
 // =============================================
@@ -58,6 +63,7 @@ var option = {
 
 gulp.task('img', function() {
     return gulp.src(path.img)
+    .pipe(imagemin(option.imageopt))
     .pipe(gulp.dest(basepath.dist + '/img'))
 });
 

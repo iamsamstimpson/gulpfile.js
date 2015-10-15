@@ -1,3 +1,7 @@
+### 1.3.0 (Oct 15, 2015)
+
+* Added JS uglify if production
+
 ### 1.2.0 (Oct 15, 2015)
 
 * Added environment variables

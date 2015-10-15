@@ -9,39 +9,38 @@ var gulp = require('gulp'),
 // Paths
 // =============================================
 
-var basePath = {
+var basepath = {
 	src: './assets',
-    dist: './build',
-    bowerDir: './bower_components'
+    dist: './build'
 };
 
 var path = {
     scss: [
-        basePath.src + '/scss/*.scss',
-        basePath.src + '/scss/**/*.scss'
+        basepath.src + '/scss/*.scss',
+        basepath.src + '/scss/**/*.scss'
     ],
     js: [
-        basePath.src + '/js/*.js',
-        basePath.src + '/js/**/*.js'
+        basepath.src + '/js/*.js',
+        basepath.src + '/js/**/*.js'
     ],
     img: [
-        basePath.src + '/img/*.png',
-        basePath.src + '/img/**/*.png',
-        basePath.src + '/img/*.jpg',
-        basePath.src + '/img/**/*.jpg',
-        basePath.src + '/img/*.jpeg',
-        basePath.src + '/img/**/*.jpeg',
-        basePath.src + '/img/*.gif',
-        basePath.src + '/img/**/*.gif',
-        basePath.src + '/img/*.svg',
-        basePath.src + '/img/**/*.svg'
+        basepath.src + '/img/*.png',
+        basepath.src + '/img/**/*.png',
+        basepath.src + '/img/*.jpg',
+        basepath.src + '/img/**/*.jpg',
+        basepath.src + '/img/*.jpeg',
+        basepath.src + '/img/**/*.jpeg',
+        basepath.src + '/img/*.gif',
+        basepath.src + '/img/**/*.gif',
+        basepath.src + '/img/*.svg',
+        basepath.src + '/img/**/*.svg'
     ],
     fonts: [
-        basePath.src + '/font/*.eot',
-        basePath.src + '/font/*.otf',
-        basePath.src + '/font/*.ttf',
-        basePath.src + '/font/*.woff',
-        basePath.src + '/font/*.svg',
+        basepath.src + '/font/*.eot',
+        basepath.src + '/font/*.otf',
+        basepath.src + '/font/*.ttf',
+        basepath.src + '/font/*.woff',
+        basepath.src + '/font/*.svg',
     ]
 }
 
@@ -74,21 +73,12 @@ if(plugin.util.env.production === true) {
 }
 
 // =============================================
-// BOWER `gulp bower`
-// =============================================
-
-gulp.task('bower', function() {
-    return plugin.bower()
-        .pipe(gulp.dest(basePath.bowerDir))
-});
-
-// =============================================
 // FONTS `gulp fonts`
 // =============================================
 
 gulp.task('fonts', function() {
     return gulp.src(path.fonts)
-    .pipe(gulp.dest(basePath.dist + '/fonts'))
+    .pipe(gulp.dest(basepath.dist + '/fonts'))
 });
 
 // =============================================
@@ -98,7 +88,7 @@ gulp.task('fonts', function() {
 gulp.task('img', function() {
     return gulp.src(path.img)
     .pipe(plugin.imagemin(option.imageopt))
-    .pipe(gulp.dest(basePath.dist + '/img'))
+    .pipe(gulp.dest(basepath.dist + '/img'))
 });
 
 // =============================================
@@ -110,7 +100,7 @@ gulp.task('js', function() {
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter('default'))
     .pipe(isProduction ? plugin.uglify() : plugin.util.noop())
-    .pipe(gulp.dest(basePath.dist + '/js'))
+    .pipe(gulp.dest(basepath.dist + '/js'))
 });
 
 // =============================================
@@ -123,7 +113,7 @@ gulp.task('css', function() {
         .pipe(plugin.autoprefixer(option.autoprefixer))
         .pipe(isProduction ? plugin.combineMq() : plugin.util.noop())
         .pipe(isProduction ? plugin.minifyCss() : plugin.util.noop())
-        .pipe(gulp.dest(basePath.dist + '/css'))
+        .pipe(gulp.dest(basepath.dist + '/css'))
 });
 
 // =============================================
@@ -147,7 +137,7 @@ gulp.task('build', ['css', 'js', 'img', 'fonts']);
 // Setup 'gulp setup'
 // =============================================
 
-gulp.task('setup', ['bower', 'build']);
+gulp.task('setup', ['build']);
 
 // =============================================
 // Default 'gulp'

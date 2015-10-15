@@ -3,9 +3,7 @@
 // =============================================
 
 var gulp = require('gulp'),
-    sass = require('gulp-sass'),
-    jshint = require('gulp-jshint'),
-    imagemin = require('gulp-imagemin');
+    plugin = require('gulp-load-plugins')();
 
 // =============================================
 // Paths
@@ -79,7 +77,7 @@ gulp.task('fonts', function() {
 
 gulp.task('img', function() {
     return gulp.src(path.img)
-    .pipe(imagemin(option.imageopt))
+    .pipe(plugin.imagemin(option.imageopt))
     .pipe(gulp.dest(basepath.dist + '/img'))
 });
 
@@ -89,8 +87,8 @@ gulp.task('img', function() {
 
 gulp.task('js', function() {
     return gulp.src(path.js)
-    .pipe(jshint())
-    .pipe(jshint.reporter('default'))
+    .pipe(plugin.jshint())
+    .pipe(plugin.jshint.reporter('default'))
     .pipe(gulp.dest(basepath.dist + '/js'))
 });
 
@@ -100,8 +98,8 @@ gulp.task('js', function() {
 
 gulp.task('css', function() {
     return gulp.src(path.scss)
-        .pipe(sass())
-        .pipe(autoprefixer(option.autoprefixer))
+        .pipe(plugin.sass())
+        .pipe(plugin.autoprefixer(option.autoprefixer))
         .pipe(gulp.dest(basepath.dist + '/css'))
 });
 

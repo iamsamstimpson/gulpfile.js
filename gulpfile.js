@@ -99,6 +99,7 @@ gulp.task('js', function() {
     return gulp.src(path.js)
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter('default'))
+    .pipe(isProduction ? plugin.uglify() : plugin.util.noop())
     .pipe(gulp.dest(basepath.dist + '/js'))
 });
 

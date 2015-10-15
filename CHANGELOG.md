@@ -1,3 +1,8 @@
+### 1.4.0 (Oct 15, 2015)
+
+* Added Bower
+* Added Bower first install task
+
 ### 1.3.0 (Oct 15, 2015)
 
 * Added JS uglify if production

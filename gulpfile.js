@@ -3,7 +3,8 @@
 // =============================================
 
 var gulp = require('gulp'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass'),
+    jshint = require('gulp-jshint');
 
 // =============================================
 // Paths
@@ -45,6 +46,8 @@ var option = {
 
 gulp.task('js', function() {
     return gulp.src(path.js)
+    .pipe(jshint())
+    .pipe(jshint.reporter('default'))
     .pipe(gulp.dest(basepath.dist + '/js'))
 });
 

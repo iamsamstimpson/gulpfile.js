@@ -2,8 +2,5 @@
 node_modules
 .sass_cache
 
-# Bower
-bower_components
-
 # Project
 build

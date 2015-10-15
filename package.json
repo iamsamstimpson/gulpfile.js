@@ -1,6 +1,6 @@
 {
   "name": "kettle",
-  "version": "1.4.0",
+  "version": "1.3.0",
   "description": "Kettle is a boilerplate gulpfile.js for use in front-end projects.",
   "main": "gulpfile.js",
   "scripts": {
@@ -12,25 +12,17 @@
   },
   "keywords": [
     "npm",
-    "gulp",
-    "sass",
-    "css",
-    "js",
-    "img",
-    "fonts",
-    "bower"
+    "gulp"
   ],
-  "author": "Jake Cobley <jake@cobe.ly>",
+  "author": "Jake Cobley",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/JakeCobley/Kettle/issues"
   },
   "homepage": "https://github.com/JakeCobley/Kettle#readme",
   "devDependencies": {
-    "bower": "^1.6.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.2",
-    "gulp-bower": "0.0.10",
     "gulp-combine-mq": "^0.4.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-jshint": "^1.11.2",

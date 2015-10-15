@@ -1,0 +1,26 @@
+{
+  "name": "kettle",
+  "version": "0.1.0",
+  "description": "Kettle is a boilerplate gulpfile.js for use in front-end projects.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeCobley/Kettle.git"
+  },
+  "keywords": [
+    "npm",
+    "gulp"
+  ],
+  "author": "Jake Cobley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JakeCobley/Kettle/issues"
+  },
+  "homepage": "https://github.com/JakeCobley/Kettle#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  }
+}

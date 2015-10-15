@@ -22,12 +22,27 @@ var path = {
 }
 
 // =============================================
+// Options
+// =============================================
+
+var option = {
+    autoprefixer: [
+        'last 2 version',
+        'safari 5',
+        'opera 12.1',
+        'ios 6',
+        'android 4'
+    ]
+};
+
+// =============================================
 // SASS `gulp scss`
 // =============================================
 
 gulp.task('css', function() {
     return gulp.src(path.scss)
         .pipe(sass())
+        .pipe(autoprefixer(option.autoprefixer))
         .pipe(gulp.dest(basepath.dist + '/css'))
 });
 

@@ -9,6 +9,8 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * JS
     * Compiling
     * JSHint Error Reporting
+* Images
+    * Compiling
 
 
 ## Project Structure
@@ -17,9 +19,11 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 +-- assets/
 |   +-- scss
 |   +-- js
+|   +-- img
 +-- build/
 |   +-- css
 |   +-- js
+|   +-- img
 +-- package.json/
 +-- gulpfile.js/
 ```

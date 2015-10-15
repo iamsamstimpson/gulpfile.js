@@ -4,7 +4,8 @@
 
 var gulp = require('gulp'),
     sass = require('gulp-sass'),
-    jshint = require('gulp-jshint');
+    jshint = require('gulp-jshint'),
+    imagemin = require('gulp-imagemin');
 
 // =============================================
 // Paths
@@ -23,6 +24,18 @@ var path = {
     js: [
         basepath.src + '/js/*.js',
         basepath.src + '/js/**/*.js'
+    ],
+    img: [
+        basepath.src + '/img/*.png',
+        basepath.src + '/img/**/*.png',
+        basepath.src + '/img/*.jpg',
+        basepath.src + '/img/**/*.jpg',
+        basepath.src + '/img/*.jpeg',
+        basepath.src + '/img/**/*.jpeg',
+        basepath.src + '/img/*.gif',
+        basepath.src + '/img/**/*.gif',
+        basepath.src + '/img/*.svg',
+        basepath.src + '/img/**/*.svg',
     ]
 }
 
@@ -37,8 +50,22 @@ var option = {
         'opera 12.1',
         'ios 6',
         'android 4'
-    ]
+    ],
+    imageopt: {
+        progressive: true,
+        svgoPlugins: [{removeViewBox: false}]
+    }
 };
+
+// =============================================
+// IMG `gulp img`
+// =============================================
+
+gulp.task('img', function() {
+    return gulp.src(path.img)
+    .pipe(imagemin(option.imageopt))
+    .pipe(gulp.dest(basepath.dist + '/img'))
+});
 
 // =============================================
 // JS `gulp js`
@@ -69,13 +96,20 @@ gulp.task('css', function() {
 gulp.task('watch', function() {
     gulp.watch(path.scss, ['css']);
     gulp.watch(path.js, ['js']);
+    gulp.watch(path.img, ['img']);
 });
 
 // =============================================
 // Build 'gulp build'
 // =============================================
 
-gulp.task('build', ['css', 'js']);
+gulp.task('build', ['css', 'js', 'img']);
+
+// =============================================
+// Setup 'gulp setup'
+// =============================================
+
+gulp.task('setup', ['build']);
 
 // =============================================
 // Default 'gulp'

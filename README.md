@@ -6,6 +6,8 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * Sass
     * Compiling
     * Autoprefixer
+    * Minification (if `--production`)
+    * Combine Media Queries (if `--production`)
 * JS
     * Compiling
     * JSHint Error Reporting
@@ -14,7 +16,6 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
     * Lossless Optimisation
 * Fonts
     * Compiling
-
 
 ## Project Structure
 ```
@@ -37,8 +38,14 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 1. Run `$ npm install` to install packages.
 2. Run '$ gulp setup' to do the first asset build.
 
-## Once Setup:
+## Once Setup
 * Run `$ gulp` and start developing
+
+## Gulp Tasks
+* `$ gulp Setup` - Setup is the first time install task.
+* `$ gulp` - Default task, builds assets, starts watching directories for changes.
+* `$ gulp Build` - Rebuilds all assets
+* `$ gulp Build --production` - Rebuilds all assets in production format (Minification etc).
 
 ## Dependencies
 * [gulp](https://www.npmjs.com/package/gulp)

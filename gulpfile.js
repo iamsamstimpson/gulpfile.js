@@ -63,6 +63,16 @@ var option = {
 };
 
 // =============================================
+// Enviroment
+// =============================================
+
+var isProduction = false;
+
+if(plugin.util.env.production === true) {
+    isProduction = true;
+}
+
+// =============================================
 // FONTS `gulp fonts`
 // =============================================
 
@@ -100,6 +110,8 @@ gulp.task('css', function() {
     return gulp.src(path.scss)
         .pipe(plugin.sass())
         .pipe(plugin.autoprefixer(option.autoprefixer))
+        .pipe(isProduction ? plugin.combineMq() : plugin.util.noop())
+        .pipe(isProduction ? plugin.minifyCss() : plugin.util.noop())
         .pipe(gulp.dest(basepath.dist + '/css'))
 });
 

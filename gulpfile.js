@@ -37,7 +37,7 @@ var path = {
         basepath.src + '/img/*.svg',
         basepath.src + '/img/**/*.svg'
     ],
-    font: [
+    fonts: [
         basepath.src + '/font/*.eot',
         basepath.src + '/font/*.otf',
         basepath.src + '/font/*.ttf',

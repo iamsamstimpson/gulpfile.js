@@ -18,6 +18,10 @@ var path = {
     scss: [
         basepath.src + '/scss/*.scss',
         basepath.src + '/scss/**/*.scss'
+    ],
+    js: [
+        basepath.src + '/js/*.js',
+        basepath.src + '/js/**/*.js'
     ]
 }
 
@@ -36,7 +40,16 @@ var option = {
 };
 
 // =============================================
-// SASS `gulp scss`
+// JS `gulp js`
+// =============================================
+
+gulp.task('js', function() {
+    return gulp.src(path.js)
+    .pipe(gulp.dest(basepath.dist + '/js'))
+});
+
+// =============================================
+// CSS `gulp css`
 // =============================================
 
 gulp.task('css', function() {
@@ -52,13 +65,14 @@ gulp.task('css', function() {
 
 gulp.task('watch', function() {
     gulp.watch(path.scss, ['css']);
+    gulp.watch(path.js, ['js']);
 });
 
 // =============================================
 // Build 'gulp build'
 // =============================================
 
-gulp.task('build', ['css']);
+gulp.task('build', ['css', 'js']);
 
 // =============================================
 // Default 'gulp'

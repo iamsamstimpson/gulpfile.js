@@ -35,7 +35,14 @@ var path = {
         basepath.src + '/img/*.gif',
         basepath.src + '/img/**/*.gif',
         basepath.src + '/img/*.svg',
-        basepath.src + '/img/**/*.svg',
+        basepath.src + '/img/**/*.svg'
+    ],
+    fonts: [
+        basepath.src + '/font/*.eot',
+        basepath.src + '/font/*.otf',
+        basepath.src + '/font/*.ttf',
+        basepath.src + '/font/*.woff',
+        basepath.src + '/font/*.svg',
     ]
 }
 
@@ -56,6 +63,15 @@ var option = {
         svgoPlugins: [{removeViewBox: false}]
     }
 };
+
+// =============================================
+// FONTS `gulp fonts`
+// =============================================
+
+gulp.task('fonts', function() {
+    return gulp.src(path.fonts)
+    .pipe(gulp.dest(basepath.dist + '/fonts'))
+});
 
 // =============================================
 // IMG `gulp img`
@@ -97,13 +113,14 @@ gulp.task('watch', function() {
     gulp.watch(path.scss, ['css']);
     gulp.watch(path.js, ['js']);
     gulp.watch(path.img, ['img']);
+    gulp.watch(path.fonts, ['fonts']);
 });
 
 // =============================================
 // Build 'gulp build'
 // =============================================
 
-gulp.task('build', ['css', 'js', 'img']);
+gulp.task('build', ['css', 'js', 'img', 'fonts']);
 
 // =============================================
 // Setup 'gulp setup'

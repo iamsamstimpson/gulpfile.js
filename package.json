@@ -1,6 +1,6 @@
 {
   "name": "kettle",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "Kettle is a boilerplate gulpfile.js for use in front-end projects.",
   "main": "gulpfile.js",
   "scripts": {

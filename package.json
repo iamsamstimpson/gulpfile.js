@@ -12,9 +12,15 @@
   },
   "keywords": [
     "npm",
-    "gulp"
+    "gulp",
+    "sass",
+    "css",
+    "js",
+    "img",
+    "fonts",
+    "bower"
   ],
-  "author": "Jake Cobley",
+  "author": "Jake Cobley <jake@cobe.ly>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/JakeCobley/Kettle/issues"

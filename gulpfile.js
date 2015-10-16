@@ -9,7 +9,7 @@ var gulp = require('gulp'),
 // Paths
 // =============================================
 
-var basepath = {
+var basePath = {
 	src: './assets',
     dist: './build',
     bowerDir: './bower_components';

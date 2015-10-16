@@ -1,7 +1,12 @@
+### 1.4.1 (Oct 16, 2015)
+
+* Fix merge issue
+* Fix docs
+
 ### 1.4.0 (Oct 15, 2015)
 
 * Added Bower
-* Added Bower first install task
+* Added Bower first setup task
 
 ### 1.3.0 (Oct 15, 2015)
 

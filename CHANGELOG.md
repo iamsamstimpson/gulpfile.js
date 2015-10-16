@@ -1,3 +1,7 @@
+### 1.4.2 (Oct 16, 2015)
+
+* Fix updated 'basepath' object
+
 ### 1.4.1 (Oct 16, 2015)
 
 * Fix merge issue

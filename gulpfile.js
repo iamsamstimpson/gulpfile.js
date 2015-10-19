@@ -126,6 +126,7 @@ gulp.task('css', function() {
         .pipe(isProduction ? plugin.combineMq() : plugin.util.noop())
         .pipe(isProduction ? plugin.minifyCss() : plugin.util.noop())
         .pipe(gulp.dest(basePath.dist + '/css'))
+        .pipe(browserSync.stream());
 });
 
 // =============================================

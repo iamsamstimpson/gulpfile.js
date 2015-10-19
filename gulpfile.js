@@ -16,32 +16,21 @@ var basePath = {
 };
 
 var path = {
-    scss: [
-        basePath.src + '/scss/*.scss',
-        basePath.src + '/scss/**/*.scss'
-    ],
-    js: [
-        basePath.src + '/js/*.js',
-        basePath.src + '/js/**/*.js'
-    ],
+    scss: basePath.src + '/scss/**/*.scss',
+    js: basePath.src + '/js/**/*.js',
     img: [
-        basePath.src + '/img/*.png',
         basePath.src + '/img/**/*.png',
-        basePath.src + '/img/*.jpg',
         basePath.src + '/img/**/*.jpg',
-        basePath.src + '/img/*.jpeg',
         basePath.src + '/img/**/*.jpeg',
-        basePath.src + '/img/*.gif',
         basePath.src + '/img/**/*.gif',
-        basePath.src + '/img/*.svg',
         basePath.src + '/img/**/*.svg'
     ],
     fonts: [
-        basePath.src + '/font/*.eot',
-        basePath.src + '/font/*.otf',
-        basePath.src + '/font/*.ttf',
-        basePath.src + '/font/*.woff',
-        basePath.src + '/font/*.svg',
+        basePath.src + '/font/**/*.eot',
+        basePath.src + '/font/**/*.otf',
+        basePath.src + '/font/**/*.ttf',
+        basePath.src + '/font/**/*.woff',
+        basePath.src + '/font/**/*.svg',
     ]
 }
 

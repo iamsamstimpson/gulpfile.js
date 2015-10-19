@@ -3,7 +3,8 @@
 // =============================================
 
 var gulp = require('gulp'),
-    plugin = require('gulp-load-plugins')();
+    plugin = require('gulp-load-plugins')(),
+    browserSync = require('browser-sync').create();
 
 // =============================================
 // Paths
@@ -56,11 +57,23 @@ var option = {
 // Environment
 // =============================================
 
+var localURL = '<PROJECTNAME>.dev';
+
 var isProduction = false;
 
 if(plugin.util.env.production === true) {
     isProduction = true;
 }
+
+// =============================================
+// BROWSER SYNC `gulp browser-sync`
+// =============================================
+
+gulp.task('browser-sync', function() {
+    browserSync.init({
+        proxy: localURL;
+    });
+});
 
 // =============================================
 // BOWER `gulp bower`

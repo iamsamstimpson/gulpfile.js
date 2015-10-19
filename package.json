@@ -28,6 +28,7 @@
   "homepage": "https://github.com/JakeCobley/Kettle#readme",
   "devDependencies": {
     "bower": "^1.6.2",
+    "browser-sync": "^2.9.11",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.0.2",
     "gulp-bower": "0.0.10",

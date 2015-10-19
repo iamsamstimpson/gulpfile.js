@@ -141,7 +141,7 @@ gulp.task('watch', function() {
 // Build 'gulp build'
 // =============================================
 
-gulp.task('build', ['css', 'js', 'img', 'fonts']);
+gulp.task('build', ['bower', 'css', 'js', 'img', 'fonts']);
 
 // =============================================
 // Default 'gulp'

@@ -1,3 +1,7 @@
+### 1.4.3 (Oct 16, 2015)
+
+* Fix spelling errors [#48](https://github.com/JakeCobley/Kettle/pull/48)
+
 ### 1.4.2 (Oct 16, 2015)
 
 * Fix updated 'basepath' object

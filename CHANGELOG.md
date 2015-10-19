@@ -1,4 +1,9 @@
-### 1.4.3 (Oct 16, 2015)
+### 1.5.0 (Oct 19, 2015)
+
+* Removed `gulp setup` task
+* Added `bower` to build task
+
+### 1.4.3 (Oct 19, 2015)
 
 * Fix spelling errors [#48](https://github.com/JakeCobley/Kettle/pull/48)
 

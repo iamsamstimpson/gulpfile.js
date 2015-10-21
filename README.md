@@ -47,8 +47,9 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 
 ## Gulp Tasks
 * `$ gulp` - Default task, builds assets, starts watching directories for changes.
-* `$ gulp Build` - Rebuilds all assets (inc bower_components)
-* `$ gulp Build --production` - Rebuilds all assets in production format (Minification etc).
+* `$ gulp watch` - Starts watching directories for changes.
+* `$ gulp build` - Rebuilds all assets (inc bower_components)
+* `$ gulp build --production` - Rebuilds all assets in production format (Minification etc).
 
 ## Dependencies
 * [gulp](https://www.npmjs.com/package/gulp)

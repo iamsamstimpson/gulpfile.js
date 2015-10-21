@@ -13,7 +13,7 @@ var gulp = require('gulp'),
 var basePath = {
 	src: './assets',
     dist: './build',
-    bowerDir: './bower_components';
+    bowerDir: './bower_components'
 };
 
 var path = {
@@ -31,7 +31,7 @@ var path = {
         basePath.src + '/font/**/*.otf',
         basePath.src + '/font/**/*.ttf',
         basePath.src + '/font/**/*.woff',
-        basePath.src + '/font/**/*.svg',
+        basePath.src + '/font/**/*.svg'
     ]
 }
 
@@ -70,8 +70,8 @@ if(plugin.util.env.production === true) {
 // =============================================
 
 gulp.task('browser-sync', function() {
-    browserSync.init({
-        proxy: localURL;
+    browserSync.init(null, {
+        proxy: localURL
     });
 });
 
@@ -81,7 +81,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('bower', function() {
     return plugin.bower()
-        .pipe(gulp.dest(basePath.bowerDir))
+        .pipe(gulp.dest(basePath.bowerDir));
 });
 
 // =============================================
@@ -90,7 +90,7 @@ gulp.task('bower', function() {
 
 gulp.task('fonts', function() {
     return gulp.src(path.fonts)
-    .pipe(gulp.dest(basePath.dist + '/fonts'))
+    .pipe(gulp.dest(basePath.dist + '/fonts'));
 });
 
 // =============================================
@@ -100,7 +100,7 @@ gulp.task('fonts', function() {
 gulp.task('img', function() {
     return gulp.src(path.img)
     .pipe(plugin.imagemin(option.imageopt))
-    .pipe(gulp.dest(basePath.dist + '/img'))
+    .pipe(gulp.dest(basePath.dist + '/img'));
 });
 
 // =============================================
@@ -112,7 +112,7 @@ gulp.task('js', function() {
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter('default'))
     .pipe(isProduction ? plugin.uglify() : plugin.util.noop())
-    .pipe(gulp.dest(basePath.dist + '/js'))
+    .pipe(gulp.dest(basePath.dist + '/js'));
 });
 
 // =============================================
@@ -126,14 +126,14 @@ gulp.task('css', function() {
         .pipe(isProduction ? plugin.combineMq() : plugin.util.noop())
         .pipe(isProduction ? plugin.minifyCss() : plugin.util.noop())
         .pipe(gulp.dest(basePath.dist + '/css'))
-        .pipe(browserSync.stream());
+        .pipe(browserSync.reload({stream: true}));
 });
 
 // =============================================
 // Watch 'gulp watch'
 // =============================================
 
-gulp.task('watch', function() {
+gulp.task('watch',['browser-sync'], function() {
     gulp.watch(path.scss, ['css']);
     gulp.watch(path.js, ['js']);
     gulp.watch(path.img, ['img']);

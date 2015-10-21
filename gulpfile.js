@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 var basePath = {
 	src: './assets',
     dist: './build',
-    bowerDir: './bower_components';
+    bowerDir: './bower_components'
 };
 
 var path = {
@@ -30,7 +30,7 @@ var path = {
         basePath.src + '/font/**/*.otf',
         basePath.src + '/font/**/*.ttf',
         basePath.src + '/font/**/*.woff',
-        basePath.src + '/font/**/*.svg',
+        basePath.src + '/font/**/*.svg'
     ]
 }
 

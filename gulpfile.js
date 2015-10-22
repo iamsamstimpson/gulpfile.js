@@ -112,7 +112,8 @@ gulp.task('js', function() {
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter('default'))
     .pipe(isProduction ? plugin.uglify() : plugin.util.noop())
-    .pipe(gulp.dest(basePath.dist + '/js'));
+    .pipe(gulp.dest(basePath.dist + '/js'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 // =============================================

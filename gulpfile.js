@@ -124,6 +124,7 @@ gulp.task('js', function() {
 
 gulp.task('css', function() {
     return gulp.src(path.scss)
+        .pipe(plugin.clipEmptyFiles())
         .pipe(plugin.sass())
         .pipe(plugin.autoprefixer(option.autoprefixer))
         .pipe(isProduction ? plugin.combineMq() : plugin.util.noop())

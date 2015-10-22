@@ -3,7 +3,8 @@
 // =============================================
 
 var gulp = require('gulp'),
-    plugin = require('gulp-load-plugins')();
+    plugin = require('gulp-load-plugins')(),
+    browserSync = require('browser-sync').create();
 
 // =============================================
 // Paths
@@ -56,6 +57,8 @@ var option = {
 // Environment
 // =============================================
 
+var localURL = '<PROJECTNAME>.dev';
+
 var isProduction = false;
 
 if(plugin.util.env.production === true) {
@@ -63,12 +66,24 @@ if(plugin.util.env.production === true) {
 }
 
 // =============================================
+// BROWSER SYNC `gulp browser-sync`
+// =============================================
+
+gulp.task('browser-sync', function() {
+    browserSync.init(null, {
+        proxy: localURL,
+        online: false,
+        open: false
+    });
+});
+
+// =============================================
 // BOWER `gulp bower`
 // =============================================
 
 gulp.task('bower', function() {
     return plugin.bower()
-        .pipe(gulp.dest(basePath.bowerDir))
+        .pipe(gulp.dest(basePath.bowerDir));
 });
 
 // =============================================
@@ -77,7 +92,7 @@ gulp.task('bower', function() {
 
 gulp.task('fonts', function() {
     return gulp.src(path.fonts)
-    .pipe(gulp.dest(basePath.dist + '/fonts'))
+    .pipe(gulp.dest(basePath.dist + '/fonts'));
 });
 
 // =============================================
@@ -87,7 +102,7 @@ gulp.task('fonts', function() {
 gulp.task('img', function() {
     return gulp.src(path.img)
     .pipe(plugin.imagemin(option.imageopt))
-    .pipe(gulp.dest(basePath.dist + '/img'))
+    .pipe(gulp.dest(basePath.dist + '/img'));
 });
 
 // =============================================
@@ -100,6 +115,7 @@ gulp.task('js', function() {
     .pipe(plugin.jshint.reporter('default'))
     .pipe(isProduction ? plugin.uglify() : plugin.util.noop())
     .pipe(gulp.dest(basePath.dist + '/js'))
+    .pipe(browserSync.reload({stream: true}));
 });
 
 // =============================================
@@ -113,13 +129,14 @@ gulp.task('css', function() {
         .pipe(isProduction ? plugin.combineMq() : plugin.util.noop())
         .pipe(isProduction ? plugin.minifyCss() : plugin.util.noop())
         .pipe(gulp.dest(basePath.dist + '/css'))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 // =============================================
 // Watch 'gulp watch'
 // =============================================
 
-gulp.task('watch', function() {
+gulp.task('watch',['browser-sync'], function() {
     gulp.watch(path.scss, ['css']);
     gulp.watch(path.js, ['js']);
     gulp.watch(path.img, ['img']);

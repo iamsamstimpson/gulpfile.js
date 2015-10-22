@@ -71,7 +71,9 @@ if(plugin.util.env.production === true) {
 
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        proxy: localURL
+        proxy: localURL,
+        online: false,
+        open: false
     });
 });
 

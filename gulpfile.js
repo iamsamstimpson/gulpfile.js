@@ -14,7 +14,11 @@ var sourceDirectory = './assets',
     bowerFolder = 'bower_components',
     url = '<PROJECTNAME>.dev',
     autoprefixer = ['last 2 versions'],
-    imageOptimisation = { progressive: true};
+    imageOptimisation = {
+        optimizationLevel: 3,   // PNG (Between 0 - 7)
+        progressive: true,      // JPG
+        interlaced: true        // GIF
+    };
 
 // =============================================
 // Dependencies

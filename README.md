@@ -18,7 +18,7 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * Fonts
     * Compiling
 * Bower
-    * Install components in the bower.json file
+    * Install components from the bower.json file
 * Browser Sync
     * CSS Injecting
     * JS Auto reload page
@@ -43,7 +43,6 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 
 ## Setup
 1. Run `$ npm install` to install packages.
-2. Run `$ gulp build` to do the first asset build.
 
 ## Once Setup
 * Run `$ gulp` and start developing
@@ -65,12 +64,15 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * [gulp-combine-mq](https://www.npmjs.com/package/gulp-combine-mq)
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
 * [gulp-bower](https://www.npmjs.com/package/gulp-bower)
+* [gulp-clip-empty-files](https://www.npmjs.com/package/gulp-clip-empty-files)
+* [gulp-util](https://www.npmjs.com/package/gulp-util)
 
 ## To Do
-* Browser Sync (Disable by default)
-* Sourcemaps
+* Browser Sync (Disabled by default)
+* Sourcemaps (JS & SCSS)
 * Cache
 * JS File Concating
+* Error Handling (Plumber)
 * Notifications (Disable by default)
 
 ## License

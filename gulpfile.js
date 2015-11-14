@@ -26,6 +26,7 @@ var sourceDirectory = './assets',
 
 var gulp = require('gulp'),
     plugin = require('gulp-load-plugins')(),
+    del = require('del'),
     browserSync = require('browser-sync').create();
 
 // =============================================
@@ -124,6 +125,15 @@ gulp.task('css', function() {
 });
 
 // =============================================
+// Clean `gulp clean
+// destroys the build directory
+// =============================================
+
+gulp.task('clean', function(cb) {
+    return del([buildDirectory], cb);
+});
+
+// =============================================
 // Watch 'gulp watch'
 // watches for changes and runs the associated task on change
 // =============================================
@@ -140,11 +150,15 @@ gulp.task('watch',['browser-sync'], function() {
 // builds all assets, also has `--production` option to build production ready assets
 // =============================================
 
-gulp.task('build', ['bower', 'css', 'js', 'img', 'fonts']);
+gulp.task('build', ['clean'], function() {
+    gulp.start('bower', 'css', 'js', 'img', 'fonts');
+});
 
 // =============================================
 // Default 'gulp'
 // builds all assets and starts the watch task
 // =============================================
 
-gulp.task('default', ['build', 'watch']);
+gulp.task('default', ['build'], function() {
+    gulp.start('watch');
+});

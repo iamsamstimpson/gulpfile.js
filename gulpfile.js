@@ -12,7 +12,7 @@ var sourceDirectory = './assets',
     imagesFolder = 'img',
     fontsFolder = 'fonts',
     bowerFolder = 'bower_components',
-    url = 'jake.dev',
+    url = '<PROJECTNAME>.dev',
     autoprefixer = ['last 2 versions'],
     imageOptimisation = {
         optimizationLevel: 3,   // PNG (Between 0 - 7)

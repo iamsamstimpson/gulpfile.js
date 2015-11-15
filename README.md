@@ -69,6 +69,8 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * [gulp-bower](https://www.npmjs.com/package/gulp-bower)
 * [gulp-clip-empty-files](https://www.npmjs.com/package/gulp-clip-empty-files)
 * [gulp-util](https://www.npmjs.com/package/gulp-util)
+* [gulp-include](https://www.npmjs.com/package/gulp-include)
+* [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
 
 ## To Do
 * Browser Sync (Disabled by default)

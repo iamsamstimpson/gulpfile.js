@@ -123,8 +123,10 @@ gulp.task('js', function() {
 gulp.task('css', function() {
     return gulp.src(scss.source)
         .pipe(plugin.clipEmptyFiles())
+        .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
         .pipe(plugin.sass())
         .pipe(plugin.autoprefixer(autoprefixer))
+        .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
         .pipe(plugin.util.env.production ? plugin.combineMq() : plugin.util.noop())
         .pipe(plugin.util.env.production ? plugin.minifyCss() : plugin.util.noop())
         .pipe(gulp.dest(scss.build))

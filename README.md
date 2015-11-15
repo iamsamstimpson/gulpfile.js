@@ -6,6 +6,7 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * Sass
     * Compiling
     * Autoprefixer
+    * Sourcemaps (if not `--production`)
     * Minification (if `--production`)
     * Combine Media Queries (if `--production`)
 * JS

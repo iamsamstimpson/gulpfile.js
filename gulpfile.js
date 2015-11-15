@@ -144,31 +144,23 @@ gulp.task('clean', function(cb) {
 });
 
 // =============================================
-// Watch 'gulp watch'
-// watches for changes and runs the associated task on change
-// =============================================
-
-gulp.task('watch',['browser-sync'], function() {
-    gulp.watch(scss.source, ['css']);
-    gulp.watch(js.source, ['js']);
-    gulp.watch(img.source, ['img']);
-    gulp.watch(fonts.source, ['fonts']);
-});
-
-// =============================================
 // Build 'gulp build'
 // builds all assets, also has `--production` option to build production ready assets
 // =============================================
 
-gulp.task('build', ['clean'], function(cb) {
-    runSequence('bower', 'css', 'js', 'img', 'fonts', cb);
+gulp.task('build', function(cb) {
+    runSequence('clean', 'bower', 'css', 'js', 'img', 'fonts', cb);
 });
 
 // =============================================
 // Default 'gulp'
-// builds all assets and starts the watch task
+// runs build task, watches for changes and runs the associated task on change
 // =============================================
 
-gulp.task('default', ['build'], function(cb) {
-    runSequence('watch', cb);
+gulp.task('default', function(cb) {
+    runSequence('build', 'browser-sync', cb);
+    gulp.watch(scss.source, ['css']);
+    gulp.watch(js.source, ['js']);
+    gulp.watch(img.source, ['img']);
+    gulp.watch(fonts.source, ['fonts']);
 });

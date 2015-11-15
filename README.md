@@ -11,6 +11,7 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * JS
     * Compiling
     * Optional Concatenation using `//=require _FILENAME.js `
+    * Sourcemaps (if not `--production`)
     * JSHint Error Reporting
     * Uglify (if `--production`)
 * Images
@@ -70,7 +71,6 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 
 ## To Do
 * Browser Sync (Disabled by default)
-* Sourcemaps (JS & SCSS)
 * Cache
 * Error Handling (Plumber)
 * Notifications (Disable by default)

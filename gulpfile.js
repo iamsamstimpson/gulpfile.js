@@ -107,7 +107,9 @@ gulp.task('js', function() {
     return gulp.src(js.source)
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter('default'))
+    .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
     .pipe(plugin.include())
+    .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
     .pipe(plugin.util.env.production ? plugin.uglify() : plugin.util.noop())
     .pipe(gulp.dest(js.build))
     .pipe(browserSync.reload({stream: true}));

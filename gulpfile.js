@@ -38,7 +38,10 @@ var scss = {
         build: buildDirectory + '/' + cssFolder
     },
     js = {
-        source: sourceDirectory + '/' + jsFolder + '/**/*.js',
+        source: [
+            sourceDirectory + '/' + jsFolder + '/**/*.js',
+            '!' + sourceDirectory + '/' + jsFolder + '/**/_*.js',
+        ],
         build: buildDirectory + '/' + jsFolder
     },
     img = {
@@ -97,12 +100,14 @@ gulp.task('img', function() {
 // =============================================
 // JS `gulp js`
 // compiles js, Jshint, Minify if `--production`
+// ** does not compile files with `_FILENAME`
 // =============================================
 
 gulp.task('js', function() {
     return gulp.src(js.source)
     .pipe(plugin.jshint())
     .pipe(plugin.jshint.reporter('default'))
+    .pipe(plugin.include())
     .pipe(plugin.util.env.production ? plugin.uglify() : plugin.util.noop())
     .pipe(gulp.dest(js.build))
     .pipe(browserSync.reload({stream: true}));

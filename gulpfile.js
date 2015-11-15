@@ -12,7 +12,7 @@ var sourceDirectory = './assets',
     imagesFolder = 'img',
     fontsFolder = 'fonts',
     bowerFolder = 'bower_components',
-    url = '<PROJECTNAME>.dev',
+    url = 'jake.dev',
     autoprefixer = ['last 2 versions'],
     imageOptimisation = {
         optimizationLevel: 3,   // PNG (Between 0 - 7)
@@ -27,6 +27,7 @@ var sourceDirectory = './assets',
 var gulp = require('gulp'),
     plugin = require('gulp-load-plugins')(),
     del = require('del'),
+    runSequence = require('run-sequence'),
     browserSync = require('browser-sync').create();
 
 // =============================================
@@ -83,7 +84,7 @@ gulp.task('bower', function() {
 
 gulp.task('fonts', function() {
     return gulp.src(fonts.source)
-    .pipe(gulp.dest(fonts.build));
+        .pipe(gulp.dest(fonts.build));
 });
 
 // =============================================
@@ -93,8 +94,8 @@ gulp.task('fonts', function() {
 
 gulp.task('img', function() {
     return gulp.src(img.source)
-    .pipe(plugin.imagemin(imageOptimisation))
-    .pipe(gulp.dest(img.build));
+        .pipe(plugin.imagemin(imageOptimisation))
+        .pipe(gulp.dest(img.build));
 });
 
 // =============================================
@@ -105,14 +106,14 @@ gulp.task('img', function() {
 
 gulp.task('js', function() {
     return gulp.src(js.source)
-    .pipe(plugin.jshint())
-    .pipe(plugin.jshint.reporter('default'))
-    .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
-    .pipe(plugin.include())
-    .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
-    .pipe(plugin.util.env.production ? plugin.uglify() : plugin.util.noop())
-    .pipe(gulp.dest(js.build))
-    .pipe(browserSync.reload({stream: true}));
+        .pipe(plugin.jshint())
+        .pipe(plugin.jshint.reporter('default'))
+        .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
+        .pipe(plugin.include())
+        .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
+        .pipe(plugin.util.env.production ? plugin.uglify() : plugin.util.noop())
+        .pipe(gulp.dest(js.build))
+        .pipe(browserSync.reload({stream: true}));
 });
 
 // =============================================
@@ -148,10 +149,10 @@ gulp.task('clean', function(cb) {
 // =============================================
 
 gulp.task('watch',['browser-sync'], function() {
-    gulp.watch(path.scss, ['css']);
-    gulp.watch(path.js, ['js']);
-    gulp.watch(path.img, ['img']);
-    gulp.watch(path.fonts, ['fonts']);
+    gulp.watch(scss.source, ['css']);
+    gulp.watch(js.source, ['js']);
+    gulp.watch(img.source, ['img']);
+    gulp.watch(fonts.source, ['fonts']);
 });
 
 // =============================================
@@ -159,8 +160,8 @@ gulp.task('watch',['browser-sync'], function() {
 // builds all assets, also has `--production` option to build production ready assets
 // =============================================
 
-gulp.task('build', ['clean'], function() {
-    gulp.start('bower', 'css', 'js', 'img', 'fonts');
+gulp.task('build', ['clean'], function(cb) {
+    runSequence('bower', 'css', 'js', 'img', 'fonts', cb);
 });
 
 // =============================================
@@ -168,6 +169,6 @@ gulp.task('build', ['clean'], function() {
 // builds all assets and starts the watch task
 // =============================================
 
-gulp.task('default', ['build'], function() {
-    gulp.start('watch');
+gulp.task('default', ['build'], function(cb) {
+    runSequence('watch', cb);
 });

@@ -75,7 +75,10 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * Browser Sync (Disabled by default)
 * Cache
 * Error Handling (Plumber)
-* Notifications (Disable by default)
+* Notifications (Error Details / Success) (Disabled by default)
+* Move from Bower to NPM for Front-End Packages
+* POST CSS branch
+* NPM only branch (no Gulp)
 
 ## License
 

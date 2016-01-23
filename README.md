@@ -11,7 +11,6 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
     * Combine Media Queries (if `--production`)
 * JS
     * Compiling
-    * Optional Concatenation using `//=require _FILENAME.js `
     * Sourcemaps (if not `--production`)
     * JSHint Error Reporting
     * Uglify (if `--production`)
@@ -30,15 +29,15 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 ```
 +-- assets/
 |   +-- fonts
-|   +-- img
-|   +-- js
-|   +-- scss
+|   +-- images
+|   +-- scripts
+|   +-- styles
 +-- bower_components/
 +-- build/
-|   +-- css
+|   +-- styles
+|   +-- scripts
+|   +-- images
 |   +-- fonts
-|   +-- img
-|   +-- js
 +-- node_modules/
 +-- package.json/
 +-- gulpfile.js/
@@ -61,14 +60,12 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * [gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 * [gulp-jshint](https://www.npmjs.com/package/gulp-jshint)
 * [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin)
-* [gulp-load-plugins](https://www.npmjs.com/package/gulp-load-plugins)
 * [gulp-minify-css](https://www.npmjs.com/package/gulp-minify-css)
 * [gulp-combine-mq](https://www.npmjs.com/package/gulp-combine-mq)
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
 * [gulp-bower](https://www.npmjs.com/package/gulp-bower)
 * [gulp-clip-empty-files](https://www.npmjs.com/package/gulp-clip-empty-files)
 * [gulp-util](https://www.npmjs.com/package/gulp-util)
-* [gulp-include](https://www.npmjs.com/package/gulp-include)
 * [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
 
 ## To Do

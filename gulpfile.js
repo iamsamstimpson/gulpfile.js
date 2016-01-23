@@ -16,6 +16,7 @@ var project = {
     bowerDirectory: './bower_components',
 };
 
+
 // =============================================
 // Project Options
 // edit these variables to suit your project
@@ -31,15 +32,29 @@ var option = {
     }
 };
 
+
 // =============================================
 // Dependencies
 // =============================================
 
 var gulp = require('gulp'),
-    plugin = require('gulp-load-plugins')(),
-    del = require('del'),
-    runSequence = require('run-sequence'),
-    browserSync = require('browser-sync').create();
+nodeModule = {
+    util:               require('gulp-util'),
+    browserSync:        require('browser-sync'),
+    del:                require('del'),
+    runSequence:        require('run-sequence'),
+    imageMin:           require('gulp-imagemin'),
+    sass:               require('gulp-sass'),
+    autoPrefixer:       require('gulp-autoprefixer'),
+    clipEmptyFiles:     require('gulp-clip-empty-files'),
+    combineMq:          require('gulp-combine-mq'),
+    jsHint:             require('gulp-jshint'),
+    minifyCss:          require('gulp-minify-css'),
+    uglify:             require('gulp-uglify'),
+    sourcemaps:         require('gulp-sourcemaps'),
+    bower:              require('gulp-bower')
+};
+
 
 // =============================================
 // BROWSER SYNC `gulp browser-sync`
@@ -47,11 +62,12 @@ var gulp = require('gulp'),
 // =============================================
 
 gulp.task('browser-sync', function() {
-    browserSync.init(null, {
+    nodeModule.browserSync.init(null, {
         proxy: project.name + project.developmentTLD,
         open: false
     });
 });
+
 
 // =============================================
 // BOWER `gulp bower`
@@ -59,9 +75,10 @@ gulp.task('browser-sync', function() {
 // =============================================
 
 gulp.task('bower', function() {
-    return plugin.bower()
+    return nodeModule.bower()
         .pipe(gulp.dest(project.bowerDirectory));
 });
+
 
 // =============================================
 // FONTS `gulp fonts`
@@ -73,6 +90,7 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest(project.distDirectory + '/' + project.fontsDirectory));
 });
 
+
 // =============================================
 // IMG `gulp img`
 // minifys images
@@ -80,9 +98,10 @@ gulp.task('fonts', function() {
 
 gulp.task('img', function() {
     return gulp.src(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*')
-        .pipe(plugin.imagemin(option.imageOptimisation))
+        .pipe(nodeModule.imageMin(option.imageOptimisation))
         .pipe(gulp.dest(project.distDirectory + '/' + project.imagesDirectory));
 });
+
 
 // =============================================
 // JS `gulp js`
@@ -91,15 +110,15 @@ gulp.task('img', function() {
 
 gulp.task('js', function() {
     return gulp.src(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js')
-        .pipe(plugin.jshint())
-        .pipe(plugin.jshint.reporter('default'))
-        .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
-        .pipe(plugin.include())
-        .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
-        .pipe(plugin.util.env.production ? plugin.uglify() : plugin.util.noop())
+        .pipe(nodeModule.jsHint())
+        .pipe(nodeModule.jsHint.reporter('default'))
+        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
+        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
+        .pipe(nodeModule.util.env.production ? nodeModule.uglify() : nodeModule.util.noop())
         .pipe(gulp.dest(project.distDirectory + '/' + project.scriptsDirectory))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(nodeModule.browserSync.reload({stream: true}));
 });
+
 
 // =============================================
 // CSS `gulp css`
@@ -108,16 +127,17 @@ gulp.task('js', function() {
 
 gulp.task('scss', function() {
     return gulp.src(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss')
-        .pipe(plugin.clipEmptyFiles())
-        .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
-        .pipe(plugin.sass())
-        .pipe(plugin.autoprefixer(option.autoprefixer))
-        .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
-        .pipe(plugin.util.env.production ? plugin.combineMq() : plugin.util.noop())
-        .pipe(plugin.util.env.production ? plugin.minifyCss() : plugin.util.noop())
+        .pipe(nodeModule.clipEmptyFiles())
+        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
+        .pipe(nodeModule.sass())
+        .pipe(nodeModule.autoPrefixer(option.autoprefixer))
+        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
+        .pipe(nodeModule.util.env.production ? nodeModule.combineMq() : nodeModule.util.noop())
+        .pipe(nodeModule.util.env.production ? nodeModule.minifyCss() : nodeModule.util.noop())
         .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))
-        .pipe(browserSync.reload({stream: true}));
+        .pipe(nodeModule.browserSync.reload({stream: true}));
 });
+
 
 // =============================================
 // Clean `gulp clean
@@ -125,8 +145,9 @@ gulp.task('scss', function() {
 // =============================================
 
 gulp.task('clean', function(cb) {
-    return del([project.distDirectory], cb);
+    return nodeModule.del([project.distDirectory], cb);
 });
+
 
 // =============================================
 // Build 'gulp build'
@@ -134,8 +155,9 @@ gulp.task('clean', function(cb) {
 // =============================================
 
 gulp.task('build', function(cb) {
-    runSequence('clean', 'bower', 'scss', 'js', 'img', 'fonts', cb);
+    nodeModule.runSequence('clean', 'bower', 'scss', 'js', 'img', 'fonts', cb);
 });
+
 
 // =============================================
 // Default 'gulp'
@@ -143,7 +165,7 @@ gulp.task('build', function(cb) {
 // =============================================
 
 gulp.task('default', function(cb) {
-    runSequence('build', 'browser-sync', cb);
+    nodeModule.runSequence('build', 'browser-sync', cb);
     gulp.watch(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', ['scss']);
     gulp.watch(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', ['js']);
     gulp.watch(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', ['img']);

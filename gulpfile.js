@@ -50,7 +50,7 @@ nodeModule = {
     clipEmptyFiles:     require('gulp-clip-empty-files'),
     combineMq:          require('gulp-combine-mq'),
     jsHint:             require('gulp-jshint'),
-    minifyCss:          require('gulp-minify-css'),
+    cssNano:          require('gulp-cssnano'),
     uglify:             require('gulp-uglify'),
     sourcemaps:         require('gulp-sourcemaps'),
     bower:              require('gulp-bower')
@@ -148,7 +148,7 @@ gulp.task('scss', function() {
         .pipe(nodeModule.autoPrefixer(option.autoprefixer))
         .pipe(environment.devevelopment ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
         .pipe(environment.production ? nodeModule.combineMq() : nodeModule.util.noop())
-        .pipe(environment.production ? nodeModule.minifyCss() : nodeModule.util.noop())
+        .pipe(environment.production ? nodeModule.cssNano() : nodeModule.util.noop())
         .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))
         .pipe(nodeModule.browserSync.reload({stream: true}));
 });

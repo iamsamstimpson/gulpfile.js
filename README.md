@@ -61,7 +61,7 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * [gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
 * [gulp-jshint](https://www.npmjs.com/package/gulp-jshint)
 * [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin)
-* [gulp-minify-css](https://www.npmjs.com/package/gulp-minify-css)
+* [gulp-cssnano](https://www.npmjs.com/package/gulp-cssnano)
 * [gulp-combine-mq](https://www.npmjs.com/package/gulp-combine-mq)
 * [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
 * [gulp-bower](https://www.npmjs.com/package/gulp-bower)

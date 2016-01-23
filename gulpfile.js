@@ -1,24 +1,35 @@
 // =============================================
 // Project Settings
 // edit these variables to suit your project
-// **this is the only section you should need to edit
+// **this and the options object are the only sections you should need to edit
 // =============================================
 
-var sourceDirectory = './assets',
-    buildDirectory = './build',
-    scssFolder = 'scss',
-    cssFolder = 'css',
-    jsFolder = 'js',
-    imagesFolder = 'img',
-    fontsFolder = 'fonts',
-    bowerFolder = 'bower_components',
-    url = '<PROJECTNAME>.dev',
-    autoprefixer = ['last 2 versions'],
-    imageOptimisation = {
+var project = {
+    name: 'projectname',
+    developmentTLD: '.dev',
+    sourceDirectory: './assets',
+    distDirectory: './build',
+    stylesDirectory: 'styles',
+    scriptsDirectory: 'scripts',
+    fontsDirectory: 'fonts',
+    imagesDirectory: 'images',
+    bowerDirectory: './bower_components',
+};
+
+// =============================================
+// Project Options
+// edit these variables to suit your project
+// **this and the project object are the only sections you should need to edit
+// =============================================
+
+var option = {
+    autoprefixer: ['last 2 versions'],
+    imageOptimisation: {
         optimizationLevel: 3,   // PNG (Between 0 - 7)
         progressive: true,      // JPG
         interlaced: true        // GIF
-    };
+    }
+};
 
 // =============================================
 // Dependencies
@@ -31,38 +42,13 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync').create();
 
 // =============================================
-// Paths
-// =============================================
-
-var scss = {
-        source: sourceDirectory + '/' + scssFolder + '/**/*.scss',
-        build: buildDirectory + '/' + cssFolder
-    },
-    js = {
-        source: [
-            sourceDirectory + '/' + jsFolder + '/**/*.js',
-            '!' + sourceDirectory + '/' + jsFolder + '/**/_*.js',
-        ],
-        build: buildDirectory + '/' + jsFolder
-    },
-    img = {
-        source: sourceDirectory + '/' + imagesFolder + '/**/*',
-        build: buildDirectory + '/' + imagesFolder
-    },
-    fonts = {
-        source: sourceDirectory + '/' + fontsFolder + '/**/*',
-        build: buildDirectory + '/' + fontsFolder
-    },
-    bower = './' + bowerFolder;
-
-// =============================================
 // BROWSER SYNC `gulp browser-sync`
 // sync injection and auto reloads the browser
 // =============================================
 
 gulp.task('browser-sync', function() {
     browserSync.init(null, {
-        proxy: url,
+        proxy: project.name + project.developmentTLD,
         open: false
     });
 });
@@ -74,7 +60,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('bower', function() {
     return plugin.bower()
-        .pipe(gulp.dest(bower));
+        .pipe(gulp.dest(project.bowerDirectory));
 });
 
 // =============================================
@@ -83,8 +69,8 @@ gulp.task('bower', function() {
 // =============================================
 
 gulp.task('fonts', function() {
-    return gulp.src(fonts.source)
-        .pipe(gulp.dest(fonts.build));
+    return gulp.src(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*')
+        .pipe(gulp.dest(project.distDirectory + '/' + project.fontsDirectory));
 });
 
 // =============================================
@@ -93,26 +79,25 @@ gulp.task('fonts', function() {
 // =============================================
 
 gulp.task('img', function() {
-    return gulp.src(img.source)
-        .pipe(plugin.imagemin(imageOptimisation))
-        .pipe(gulp.dest(img.build));
+    return gulp.src(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*')
+        .pipe(plugin.imagemin(option.imageOptimisation))
+        .pipe(gulp.dest(project.distDirectory + '/' + project.imagesDirectory));
 });
 
 // =============================================
 // JS `gulp js`
 // compiles js, Jshint, Minify if `--production`
-// ** does not compile files with `_FILENAME`
 // =============================================
 
 gulp.task('js', function() {
-    return gulp.src(js.source)
+    return gulp.src(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js')
         .pipe(plugin.jshint())
         .pipe(plugin.jshint.reporter('default'))
         .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
         .pipe(plugin.include())
         .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
         .pipe(plugin.util.env.production ? plugin.uglify() : plugin.util.noop())
-        .pipe(gulp.dest(js.build))
+        .pipe(gulp.dest(project.distDirectory + '/' + project.scriptsDirectory))
         .pipe(browserSync.reload({stream: true}));
 });
 
@@ -121,16 +106,16 @@ gulp.task('js', function() {
 // compiles scss to css, autoprefixer, combines media queries and minifies if `--production`
 // =============================================
 
-gulp.task('css', function() {
-    return gulp.src(scss.source)
+gulp.task('scss', function() {
+    return gulp.src(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss')
         .pipe(plugin.clipEmptyFiles())
         .pipe(!plugin.util.env.production ? plugin.sourcemaps.init() : plugin.util.noop())
         .pipe(plugin.sass())
-        .pipe(plugin.autoprefixer(autoprefixer))
+        .pipe(plugin.autoprefixer(option.autoprefixer))
         .pipe(!plugin.util.env.production ? plugin.sourcemaps.write() : plugin.util.noop())
         .pipe(plugin.util.env.production ? plugin.combineMq() : plugin.util.noop())
         .pipe(plugin.util.env.production ? plugin.minifyCss() : plugin.util.noop())
-        .pipe(gulp.dest(scss.build))
+        .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))
         .pipe(browserSync.reload({stream: true}));
 });
 
@@ -140,7 +125,7 @@ gulp.task('css', function() {
 // =============================================
 
 gulp.task('clean', function(cb) {
-    return del([buildDirectory], cb);
+    return del([project.distDirectory], cb);
 });
 
 // =============================================
@@ -149,7 +134,7 @@ gulp.task('clean', function(cb) {
 // =============================================
 
 gulp.task('build', function(cb) {
-    runSequence('clean', 'bower', 'css', 'js', 'img', 'fonts', cb);
+    runSequence('clean', 'bower', 'scss', 'js', 'img', 'fonts', cb);
 });
 
 // =============================================
@@ -159,8 +144,8 @@ gulp.task('build', function(cb) {
 
 gulp.task('default', function(cb) {
     runSequence('build', 'browser-sync', cb);
-    gulp.watch(scss.source, ['css']);
-    gulp.watch(js.source, ['js']);
-    gulp.watch(img.source, ['img']);
-    gulp.watch(fonts.source, ['fonts']);
+    gulp.watch(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', ['scss']);
+    gulp.watch(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', ['js']);
+    gulp.watch(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', ['img']);
+    gulp.watch(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*', ['fonts']);
 });

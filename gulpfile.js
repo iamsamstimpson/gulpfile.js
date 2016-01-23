@@ -12,8 +12,7 @@ var project = {
     stylesDirectory: 'styles',
     scriptsDirectory: 'scripts',
     fontsDirectory: 'fonts',
-    imagesDirectory: 'images',
-    bowerDirectory: './bower_components',
+    imagesDirectory: 'images'
 };
 
 
@@ -50,10 +49,9 @@ nodeModule = {
     clipEmptyFiles:     require('gulp-clip-empty-files'),
     combineMq:          require('gulp-combine-mq'),
     jsHint:             require('gulp-jshint'),
-    cssNano:          require('gulp-cssnano'),
+    cssNano:            require('gulp-cssnano'),
     uglify:             require('gulp-uglify'),
-    sourcemaps:         require('gulp-sourcemaps'),
-    bower:              require('gulp-bower')
+    sourcemaps:         require('gulp-sourcemaps')
 };
 
 
@@ -79,17 +77,6 @@ gulp.task('browser-sync', function() {
             open: false
         });
     }
-});
-
-
-// =============================================
-// BOWER `gulp bower`
-// installs dependencies from the bower.json file
-// =============================================
-
-gulp.task('bower', function() {
-    return nodeModule.bower()
-        .pipe(gulp.dest(project.bowerDirectory));
 });
 
 
@@ -170,7 +157,7 @@ gulp.task('clean', function(cb) {
 // =============================================
 
 gulp.task('build', function(cb) {
-    nodeModule.runSequence('clean', 'bower', 'scss', 'js', 'img', 'fonts', cb);
+    nodeModule.runSequence('clean', 'scss', 'js', 'img', 'fonts', cb);
 });
 
 

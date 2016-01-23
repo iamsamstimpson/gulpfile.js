@@ -21,7 +21,7 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
     * Compiling
 * Bower
     * Install components from the bower.json file
-* Browser Sync
+* Browser Sync (if `--dev`)
     * CSS Injecting
     * JS Auto reload page
 
@@ -70,7 +70,6 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
 
 ## To Do
-* Browser Sync (Disabled by default)
 * Cache
 * Error Handling (Plumber)
 * Notifications (Error Details / Success) (Disabled by default)

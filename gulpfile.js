@@ -72,10 +72,12 @@ var environment = {
 // =============================================
 
 gulp.task('browser-sync', function() {
-    nodeModule.browserSync.init(null, {
-        proxy: project.name + project.developmentTLD,
-        open: false
-    });
+    if(environment.dev) {
+        nodeModule.browserSync.init(null, {
+            proxy: project.name + project.developmentTLD,
+            open: false
+        });
+    }
 });
 
 

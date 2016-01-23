@@ -43,6 +43,7 @@ nodeModule = {
     browserSync:        require('browser-sync'),
     del:                require('del'),
     runSequence:        require('run-sequence'),
+    changed:            require('gulp-changed'),
     imageMin:           require('gulp-imagemin'),
     sass:               require('gulp-sass'),
     autoPrefixer:       require('gulp-autoprefixer'),
@@ -99,6 +100,7 @@ gulp.task('bower', function() {
 
 gulp.task('fonts', function() {
     return gulp.src(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*')
+        .pipe(nodeModule.changed(project.distDirectory + '/' + project.fontsDirectory))
         .pipe(gulp.dest(project.distDirectory + '/' + project.fontsDirectory));
 });
 
@@ -110,6 +112,7 @@ gulp.task('fonts', function() {
 
 gulp.task('img', function() {
     return gulp.src(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*')
+        .pipe(nodeModule.changed(project.distDirectory + '/' + project.imagesDirectory))
         .pipe(nodeModule.imageMin(option.imageOptimisation))
         .pipe(gulp.dest(project.distDirectory + '/' + project.imagesDirectory));
 });

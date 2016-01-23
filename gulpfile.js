@@ -73,7 +73,7 @@ gulp.task('browser-sync', require('./gulp-tasks/browser-sync')(project, gulp, no
 
 gulp.task('fonts', require('./gulp-tasks/fonts')(project, gulp, nodeModule));
 
-gulp.task('images', require('./gulp-tasks/images')(project, option, gulp, nodeModule));
+gulp.task('images', require('./gulp-tasks/images')(project, option, gulp, nodeModule, environment));
 
 gulp.task('js', require('./gulp-tasks/js')(project, gulp, nodeModule, environment));
 

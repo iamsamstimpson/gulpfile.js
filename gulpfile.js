@@ -57,6 +57,16 @@ nodeModule = {
 
 
 // =============================================
+// environment Variables
+// =============================================
+
+var environment = {
+    development: nodeModule.util.env.dev,
+    production: nodeModule.util.env.production
+};
+
+
+// =============================================
 // BROWSER SYNC `gulp browser-sync`
 // sync injection and auto reloads the browser
 // =============================================
@@ -112,9 +122,9 @@ gulp.task('js', function() {
     return gulp.src(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js')
         .pipe(nodeModule.jsHint())
         .pipe(nodeModule.jsHint.reporter('default'))
-        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
-        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
-        .pipe(nodeModule.util.env.production ? nodeModule.uglify() : nodeModule.util.noop())
+        .pipe(environment.devevelopment ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
+        .pipe(environment.devevelopment ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
+        .pipe(environment.production ? nodeModule.uglify() : nodeModule.util.noop())
         .pipe(gulp.dest(project.distDirectory + '/' + project.scriptsDirectory))
         .pipe(nodeModule.browserSync.reload({stream: true}));
 });
@@ -128,12 +138,12 @@ gulp.task('js', function() {
 gulp.task('scss', function() {
     return gulp.src(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss')
         .pipe(nodeModule.clipEmptyFiles())
-        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
+        .pipe(environment.devevelopment ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
         .pipe(nodeModule.sass())
         .pipe(nodeModule.autoPrefixer(option.autoprefixer))
-        .pipe(!nodeModule.util.env.production ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
-        .pipe(nodeModule.util.env.production ? nodeModule.combineMq() : nodeModule.util.noop())
-        .pipe(nodeModule.util.env.production ? nodeModule.minifyCss() : nodeModule.util.noop())
+        .pipe(environment.devevelopment ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
+        .pipe(environment.production ? nodeModule.combineMq() : nodeModule.util.noop())
+        .pipe(environment.production ? nodeModule.minifyCss() : nodeModule.util.noop())
         .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))
         .pipe(nodeModule.browserSync.reload({stream: true}));
 });

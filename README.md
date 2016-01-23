@@ -6,12 +6,12 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * Sass
     * Compiling
     * Autoprefixer
-    * Sourcemaps (if not `--production`)
+    * Sourcemaps (if `--dev`)
     * Minification (if `--production`)
     * Combine Media Queries (if `--production`)
 * JS
     * Compiling
-    * Sourcemaps (if not `--production`)
+    * Sourcemaps (if `--dev`)
     * JSHint Error Reporting
     * Uglify (if `--production`)
 * Images
@@ -51,6 +51,7 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 
 ## Gulp Tasks
 * `$ gulp` - Default task, builds assets, starts watching directories for changes.
+* `$ gulp --dev` - Default task, builds assets, starts watching directories for changes with dev tools enabled (Sourcemaps, browserSync etc).
 * `$ gulp build` - Rebuilds all assets (inc bower_components)
 * `$ gulp build --production` - Rebuilds all assets in production format (Minification etc).
 

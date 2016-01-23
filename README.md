@@ -32,12 +32,21 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 |   +-- images
 |   +-- scripts
 |   +-- styles
-+-- bower_components/
 +-- build/
 |   +-- styles
 |   +-- scripts
 |   +-- images
 |   +-- fonts
++-- bower_components/
++-- gulp-tasks/
+|   +-- browser-sync.js
+|   +-- build.js
+|   +-- clean.js
+|   +-- default.js
+|   +-- fonts.js
+|   +-- images.js
+|   +-- js.js
+|   +-- scss.js
 +-- node_modules/
 +-- package.json/
 +-- gulpfile.js/

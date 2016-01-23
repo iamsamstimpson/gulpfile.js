@@ -47,13 +47,13 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 1. Run `$ npm install` to install packages.
 
 ## Once Setup
-* Run `$ ./node_modules/.bin/gulp` and start developing
+* Run `$ npm run default` and start developing
 
 ## Gulp Tasks
-* `$ ./node_modules/.bin/gulp` - Default task, builds assets, starts watching directories for changes.
-* `$ ./node_modules/.bin/gulp --dev` - Default task, builds assets, starts watching directories for changes with dev tools enabled (Sourcemaps, browserSync etc).
-* `$ ./node_modules/.bin/gulp build` - Rebuilds all assets (inc bower_components)
-* `$ ./node_modules/.bin/gulp build --production` - Rebuilds all assets in production format (Minification etc).
+* `$ npm run default` - Default task, builds assets, starts watching directories for changes.
+* `$ npm run default-dev` - Default task, builds assets, starts watching directories for changes with dev tools enabled (Sourcemaps, browserSync etc).
+* `$ npm run build` - Rebuilds all assets (inc bower_components)
+* `$ npm run build-production` - Rebuilds all assets in production format (Minification etc).
 
 ## Dependencies
 * [gulp](https://www.npmjs.com/package/gulp)

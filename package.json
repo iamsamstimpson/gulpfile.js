@@ -4,6 +4,10 @@
   "description": "Kettle is a boilerplate gulpfile.js for use in front-end projects.",
   "main": "gulpfile.js",
   "scripts": {
+    "default": "gulp",
+    "default-dev": "gulp --dev",
+    "build": "gulp build",
+    "build-production": "gulp build --production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -7,10 +7,10 @@ module.exports = function (project, option, gulp, nodeModule, environment) {
     return function () {
         return gulp.src(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss')
             .pipe(nodeModule.clipEmptyFiles())
-            .pipe(environment.devevelopment ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
+            .pipe(environment.development ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
             .pipe(nodeModule.sass())
             .pipe(nodeModule.autoPrefixer(option.autoprefixer))
-            .pipe(environment.devevelopment ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
+            .pipe(environment.development ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
             .pipe(environment.production ? nodeModule.combineMq() : nodeModule.util.noop())
             .pipe(environment.production ? nodeModule.cssNano() : nodeModule.util.noop())
             .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))

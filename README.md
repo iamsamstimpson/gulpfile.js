@@ -39,7 +39,7 @@ My gulp boilerplate for front-end focussed web projects. Using gulp v4 and the E
 +-- bower_components/
 +-- node_modules/
 +-- package.json/
-+-- gulpfile.js/
++-- gulpfile.babel.js/
 ```
 
 

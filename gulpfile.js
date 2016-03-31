@@ -39,7 +39,6 @@ nodeModule = {
     util:               require( 'gulp-util' ),
     browserSync:        require( 'browser-sync' ),
     del:                require( 'del' ),
-    runSequence:        require( 'run-sequence' ),
     changed:            require( 'gulp-changed' ),
     imageMin:           require( 'gulp-imagemin' ),
     sass:               require( 'gulp-sass' ),

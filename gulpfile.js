@@ -15,7 +15,6 @@ var project = {
     imagesDirectory: 'images'
 };
 
-
 // =============================================
 // Project Options
 // edit these variables to suit your project
@@ -30,7 +29,6 @@ var option = {
         interlaced: true        // GIF
     }
 };
-
 
 // =============================================
 // Dependencies
@@ -54,7 +52,6 @@ nodeModule = {
     sourcemaps:         require('gulp-sourcemaps')
 };
 
-
 // =============================================
 // Environment Variables
 // =============================================
@@ -64,23 +61,102 @@ var environment = {
     production: nodeModule.util.env.production
 };
 
+// =============================================
+// BROWSER SYNC `gulp browser-sync`
+// sync injection and auto reloads the browser
+// =============================================
+
+gulp.task('browser-sync', function() {
+    if(environment.dev) {
+        nodeModule.browserSync.init(null, {
+            proxy: project.name + project.developmentTLD,
+            open: false
+        });
+    }
+});
 
 // =============================================
-// Gulp Tasks
+// FONTS `gulp fonts`
+// moves fonts to build directory
 // =============================================
 
-gulp.task('browser-sync', require('./gulp-tasks/browser-sync')(project, gulp, nodeModule, environment));
+gulp.task('fonts', function() {
+    return gulp.src(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*')
+        .pipe(nodeModule.changed(project.distDirectory + '/' + project.fontsDirectory))
+        .pipe(gulp.dest(project.distDirectory + '/' + project.fontsDirectory));
+});
 
-gulp.task('fonts', require('./gulp-tasks/fonts')(project, gulp, nodeModule));
+// =============================================
+// IMG `gulp img`
+// minifys images
+// =============================================
 
-gulp.task('images', require('./gulp-tasks/images')(project, option, gulp, nodeModule, environment));
+gulp.task('images', function() {
+    return gulp.src(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*')
+        .pipe(nodeModule.changed(project.distDirectory + '/' + project.imagesDirectory))
+        .pipe(environment.production ? nodeModule.imageMin(option.imageOptimisation) : nodeModule.util.noop())
+        .pipe(gulp.dest(project.distDirectory + '/' + project.imagesDirectory));
+});
 
-gulp.task('js', require('./gulp-tasks/js')(project, gulp, nodeModule, environment));
+// =============================================
+// JS `gulp js`
+// compiles js, Jshint, Minify if `--production`
+// =============================================
 
-gulp.task('scss', require('./gulp-tasks/scss')(project, option, gulp, nodeModule, environment));
+gulp.task('js', function() {
+    return gulp.src(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js')
+        .pipe(nodeModule.jsHint())
+        .pipe(nodeModule.jsHint.reporter('default'))
+        .pipe(environment.production ? nodeModule.uglify() : nodeModule.util.noop())
+        .pipe(gulp.dest(project.distDirectory + '/' + project.scriptsDirectory))
+        .pipe(nodeModule.browserSync.reload({stream: true}));
+});
 
-gulp.task('clean', require('./gulp-tasks/clean')(project, nodeModule));
+// =============================================
+// CSS `gulp css`
+// compiles scss to css, autoprefixer, combines media queries and minifies if `--production`
+// =============================================
 
-gulp.task('build', require('./gulp-tasks/build')(nodeModule));
+gulp.task('scss', function() {
+    return gulp.src(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss')
+        .pipe(nodeModule.clipEmptyFiles())
+        .pipe(environment.development ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
+        .pipe(nodeModule.sass())
+        .pipe(nodeModule.autoPrefixer(option.autoprefixer))
+        .pipe(environment.development ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
+        .pipe(environment.production ? nodeModule.combineMq() : nodeModule.util.noop())
+        .pipe(environment.production ? nodeModule.cssNano() : nodeModule.util.noop())
+        .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))
+        .pipe(nodeModule.browserSync.reload({stream: true}));
+});
 
-gulp.task('default', require('./gulp-tasks/default')(project, gulp, nodeModule));
+// =============================================
+// Clean `gulp clean
+// destroys the build directory
+// =============================================
+
+gulp.task('clean', function(cb) {
+    return nodeModule.del([project.distDirectory], cb);
+});
+
+// =============================================
+// Build 'gulp build'
+// builds all assets, also has `--production` option to build production ready assets
+// =============================================
+
+gulp.task('build', function(cb) {
+    nodeModule.runSequence('clean', 'scss', 'js', 'images', 'fonts', cb);
+});
+
+// =============================================
+// Default 'gulp'
+// runs build task, watches for changes and runs the associated task on change
+// =============================================
+
+gulp.task('default', function(cb) {
+    nodeModule.runSequence('build', 'browser-sync', cb);
+    gulp.watch(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', ['scss']);
+    gulp.watch(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', ['js']);
+    gulp.watch(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', ['img']);
+    gulp.watch(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*', ['fonts']);
+});

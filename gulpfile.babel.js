@@ -4,7 +4,7 @@
 // **this and the options object are the only sections you should need to edit
 // =============================================
 
-var project = {
+const project = {
     name: 'projectname',
     developmentTLD: '.dev',
     sourceDirectory: './assets',
@@ -21,7 +21,7 @@ var project = {
 // **this and the project object are the only sections you should need to edit
 // =============================================
 
-var option = {
+const option = {
     autoprefixer: [ 'last 2 versions' ],
     imageOptimisation: {
         optimizationLevel: 3,   // PNG (Between 0 - 7)
@@ -34,116 +34,117 @@ var option = {
 // Dependencies
 // =============================================
 
-var gulp = require('gulp' ),
-nodeModule = {
-    util:               require( 'gulp-util' ),
-    browserSync:        require( 'browser-sync' ),
-    del:                require( 'del' ),
-    changed:            require( 'gulp-changed' ),
-    imageMin:           require( 'gulp-imagemin' ),
-    sass:               require( 'gulp-sass' ),
-    autoPrefixer:       require( 'gulp-autoprefixer' ),
-    clipEmptyFiles:     require( 'gulp-clip-empty-files' ),
-    combineMq:          require( 'gulp-combine-mq' ),
-    jsHint:             require( 'gulp-jshint' ),
-    cssNano:            require( 'gulp-cssnano' ),
-    uglify:             require( 'gulp-uglify' ),
-    sourcemaps:         require( 'gulp-sourcemaps' )
-};
+import gulp from 'gulp';
+import util from 'gulp-util';
+import babel from 'gulp-babel';
+import del from 'del';
+import changed from 'gulp-changed';
+import imageMin from 'gulp-imagemin';
+import sass from 'gulp-sass';
+import autoPrefixer from 'gulp-autoprefixer';
+import clipEmptyFiles from 'gulp-clip-empty-files';
+import combineMq from 'gulp-combine-mq';
+import jsHint from 'gulp-jshint';
+import cssNano from 'gulp-cssnano';
+import uglify from 'gulp-uglify';
+import sourcemaps from 'gulp-sourcemaps';
 
 // =============================================
 // Environment Variables
 // =============================================
 
-var environment = {
-    development: nodeModule.util.env.dev,
-    production: nodeModule.util.env.production
+const environment = {
+    development: util.env.dev,
+    production: util.env.production
 };
 
 // =============================================
-// FONTS `gulp fonts`
+// FONTS
 // moves fonts to build directory
 // =============================================
 
-gulp.task( 'fonts', function() {
+export function fonts() {
     return gulp.src( project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*' )
-        .pipe( nodeModule.changed(project.distDirectory + '/' + project.fontsDirectory ) )
+        .pipe( changed(project.distDirectory + '/' + project.fontsDirectory ) )
         .pipe( gulp.dest( project.distDirectory + '/' + project.fontsDirectory ) );
-} );
+}
 
 // =============================================
-// IMG `gulp img`
+// IMG
 // minifys images
 // =============================================
 
-gulp.task( 'img', function() {
+export function img() {
     return gulp.src( project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*' )
-        .pipe( nodeModule.changed( project.distDirectory + '/' + project.imagesDirectory ) )
-        .pipe( environment.production ? nodeModule.imageMin( option.imageOptimisation ) : nodeModule.util.noop() )
+        .pipe( changed( project.distDirectory + '/' + project.imagesDirectory ) )
+        .pipe( environment.production ? imageMin( option.imageOptimisation ) : util.noop() )
         .pipe( gulp.dest( project.distDirectory + '/' + project.imagesDirectory ) );
-} );
+}
 
 // =============================================
-// JS `gulp js`
+// JS
 // compiles js, Jshint, Minify if `--production`
 // =============================================
 
-gulp.task( 'js', function() {
+export function js() {
     return gulp.src( project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js' )
-        .pipe( nodeModule.jsHint() )
-        .pipe( nodeModule.jsHint.reporter( 'default' ) )
-        .pipe( environment.production ? nodeModule.uglify() : nodeModule.util.noop() )
+        .pipe( jsHint() )
+        .pipe( jsHint.reporter( 'default' ) )
+        .pipe( environment.production ? uglify() : util.noop() )
         .pipe( gulp.dest( project.distDirectory + '/' + project.scriptsDirectory ) );
-} );
+}
 
 // =============================================
-// CSS `gulp css`
+// CSS
 // compiles scss to css, autoprefixer, combines media queries and minifies if `--production`
 // =============================================
 
-gulp.task( 'scss', function() {
+export function css() {
     return gulp.src( project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss' )
-        .pipe( nodeModule.clipEmptyFiles() )
-        .pipe( environment.development ? nodeModule.sourcemaps.init() : nodeModule.util.noop() )
-        .pipe( nodeModule.sass())
-        .pipe( nodeModule.autoPrefixer( option.autoprefixer ) )
-        .pipe( environment.development ? nodeModule.sourcemaps.write() : nodeModule.util.noop() )
-        .pipe( environment.production ? nodeModule.combineMq() : nodeModule.util.noop() )
-        .pipe( environment.production ? nodeModule.cssNano() : nodeModule.util.noop() )
+        .pipe( clipEmptyFiles() )
+        .pipe( environment.development ? sourcemaps.init() : util.noop() )
+        .pipe( sass())
+        .pipe( autoPrefixer( option.autoprefixer ) )
+        .pipe( environment.development ? sourcemaps.write() : util.noop() )
+        .pipe( environment.production ? combineMq() : util.noop() )
+        .pipe( environment.production ? cssNano() : util.noop() )
         .pipe( gulp.dest( project.sourceDirectory + '/' + project.stylesDirectory ) );
-} );
+}
 
 // =============================================
-// Clean `gulp clean
+// Clean
 // destroys the build directory
 // =============================================
 
-gulp.task( 'clean', function( cb ) {
-    return nodeModule.del( [ project.distDirectory ], cb );
-} );
+const clean = () => del( [ project.distDirectory ] );
+export { clean };
 
 // =============================================
-// Build 'gulp build'
+// Build
 // builds all assets, also has `--production` option to build production ready assets
 // =============================================
 
-gulp.task( 'build', gulp.series( 'clean', gulp.parallel( 'scss', 'js', 'img', 'fonts' ) ) );
+const build = gulp.series( clean, gulp.parallel( css, js, img, fonts ) );
+export { build };
 
 // =============================================
 // Watch 'gulp watch'
 // watches files and runs on change
 // =============================================
 
-gulp.task( 'watch', function() {
-    gulp.watch( project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', gulp.series( 'scss' ) );
-    gulp.watch( project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', gulp.series( 'js' ) );
-    gulp.watch( project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', gulp.series( 'img' ) );
-    gulp.watch( project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*', gulp.series( 'fonts' ) );
-} );
+export function watch() {
+    gulp.watch( project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', css );
+    gulp.watch( project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', js );
+    gulp.watch( project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', img );
+    gulp.watch( project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*', fonts );
+}
 
 // =============================================
-// Default 'gulp'
+// Default
 // runs build task, Runs watch tasks
 // =============================================
+//
+const buildWatch = gulp.series( build, watch );
+export { buildWatch };
 
-gulp.task( 'default', gulp.series( 'build', 'watch' ) );
+export default buildWatch;

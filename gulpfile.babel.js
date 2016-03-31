@@ -1,3 +1,5 @@
+'use strict';
+
 // =============================================
 // Project Settings
 // edit these variables to suit your project

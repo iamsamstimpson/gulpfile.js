@@ -1,8 +1,8 @@
 {
-  "name": "kettle",
-  "version": "1.0.0",
-  "description": "Kettle is a boilerplate gulpfile.js for use in front-end projects.",
-  "main": "gulpfile.js",
+  "name": "Starter Gulpfile",
+  "version": "2.0.0",
+  "description": "My gulp boilerplate for front-end focussed web projects. Using gulp v4 and the ES6 syntax.",
+  "main": "gulpfile.babel.js",
   "scripts": {
     "default": "bower install && gulp",
     "default-dev": "bower install && gulp --dev",
@@ -22,7 +22,11 @@
     "js",
     "img",
     "fonts",
-    "bower"
+    "bower",
+    "babel",
+    "ES6",
+    "ES2015",
+    "gulp 4.0"
   ],
   "author": "Jake Cobley <jake@cobe.ly>",
   "license": "MIT",

@@ -1,29 +1,28 @@
-# Kettle - Boilerplate gulpfile.js
+# Starter Gulpfile
 
-Kettle is a boilerplate gulpfile.js for use in front-end projects.
+My gulp boilerplate for front-end focussed web projects. Using gulp v4 and the ES6 syntax.
+
 
 ## Features
 * Sass
-    * Compiling
     * Autoprefixer
     * Sourcemaps (if `--dev`)
     * Minification (if `--production`)
     * Combine Media Queries (if `--production`)
+    * Copy to build directory
 * JS
-    * Compiling
     * Sourcemaps (if `--dev`)
     * JSHint Error Reporting
     * Uglify (if `--production`)
+    * Copy to build directory
 * Images
-    * Compiling
     * Lossless Optimisation (if `--production`)
+    * Copy to build directory
 * Fonts
-    * Compiling
+    * Copy to build directory
 * Bower
     * Install components from the bower.json file
-* Browser Sync (if `--dev`)
-    * CSS Injecting
-    * JS Auto reload page
+
 
 ## Project Structure
 ```
@@ -38,22 +37,14 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 |   +-- images
 |   +-- fonts
 +-- bower_components/
-+-- gulp-tasks/
-|   +-- browser-sync.js
-|   +-- build.js
-|   +-- clean.js
-|   +-- default.js
-|   +-- fonts.js
-|   +-- images.js
-|   +-- js.js
-|   +-- scss.js
 +-- node_modules/
 +-- package.json/
 +-- gulpfile.js/
 ```
 
+
 ## Setup
-1. Run `$ npm install` to install packages.
+1. Run `$ npm i` to install packages.
 
 ## Once Setup
 * Run `$ npm run default` and start developing
@@ -64,26 +55,31 @@ Kettle is a boilerplate gulpfile.js for use in front-end projects.
 * `$ npm run build` - Rebuilds all assets (inc bower_components)
 * `$ npm run build-production` - Rebuilds all assets in production format (Minification etc).
 
-## Dependencies
-* [gulp](https://www.npmjs.com/package/gulp)
-* [gulp-sass](https://www.npmjs.com/package/gulp-sass)
-* [gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
-* [gulp-jshint](https://www.npmjs.com/package/gulp-jshint)
-* [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin)
-* [gulp-cssnano](https://www.npmjs.com/package/gulp-cssnano)
-* [gulp-combine-mq](https://www.npmjs.com/package/gulp-combine-mq)
-* [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
-* [gulp-clip-empty-files](https://www.npmjs.com/package/gulp-clip-empty-files)
-* [gulp-util](https://www.npmjs.com/package/gulp-util)
-* [gulp-changed](https://www.npmjs.com/package/gulp-changed)
-* [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
 
-## To Do
-* Error Handling (Plumber)
-* Notifications (Error Details / Success) (Disabled by default)
-* Move from Bower to NPM for Front-End Packages
-* POST CSS branch
-* NPM only branch (no Gulp)
+## Dependencies
+* [babel-preset-es2015](https://www.npmjs.com/package/babel-preset-es2015)
+* [babel-register](https://www.npmjs.com/package/babel-register)
+* [bower](https://www.npmjs.com/package/bower)
+* [del](https://www.npmjs.com/package/del)
+* [gulp](https://www.npmjs.com/package/gulp)
+* [gulp-autoprefixer](https://www.npmjs.com/package/gulp-autoprefixer)
+* [gulp-babel](https://www.npmjs.com/package/gulp-babel)
+* [gulp-changed](https://www.npmjs.com/package/gulp-changed)
+* [gulp-clip-empty-files](https://www.npmjs.com/package/gulp-clip-empty-files)
+* [gulp-combine-mq](https://www.npmjs.com/package/gulp-combine-mq)
+* [gulp-cssnano](https://www.npmjs.com/package/gulp-cssnano)
+* [gulp-imagemin](https://www.npmjs.com/package/gulp-imagemin)
+* [gulp-jshint](https://www.npmjs.com/package/gulp-jshint)
+* [gulp-sass](https://www.npmjs.com/package/gulp-sass)
+* [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
+* [gulp-uglify](https://www.npmjs.com/package/gulp-uglify)
+* [gulp-util](https://www.npmjs.com/package/gulp-util)
+
+
+## Contributing
+
+In lieu of a formal style guide, take care to maintain the existing coding style. Please apply fixes to both the development and production code. Don't forget to update the version number, and when applicable, the documentation.
+
 
 ## License
 

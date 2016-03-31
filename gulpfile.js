@@ -22,7 +22,7 @@ var project = {
 // =============================================
 
 var option = {
-    autoprefixer: ['last 2 versions'],
+    autoprefixer: [ 'last 2 versions' ],
     imageOptimisation: {
         optimizationLevel: 3,   // PNG (Between 0 - 7)
         progressive: true,      // JPG
@@ -34,22 +34,22 @@ var option = {
 // Dependencies
 // =============================================
 
-var gulp = require('gulp'),
+var gulp = require('gulp' ),
 nodeModule = {
-    util:               require('gulp-util'),
-    browserSync:        require('browser-sync'),
-    del:                require('del'),
-    runSequence:        require('run-sequence'),
-    changed:            require('gulp-changed'),
-    imageMin:           require('gulp-imagemin'),
-    sass:               require('gulp-sass'),
-    autoPrefixer:       require('gulp-autoprefixer'),
-    clipEmptyFiles:     require('gulp-clip-empty-files'),
-    combineMq:          require('gulp-combine-mq'),
-    jsHint:             require('gulp-jshint'),
-    cssNano:            require('gulp-cssnano'),
-    uglify:             require('gulp-uglify'),
-    sourcemaps:         require('gulp-sourcemaps')
+    util:               require( 'gulp-util' ),
+    browserSync:        require( 'browser-sync' ),
+    del:                require( 'del' ),
+    runSequence:        require( 'run-sequence' ),
+    changed:            require( 'gulp-changed' ),
+    imageMin:           require( 'gulp-imagemin' ),
+    sass:               require( 'gulp-sass' ),
+    autoPrefixer:       require( 'gulp-autoprefixer' ),
+    clipEmptyFiles:     require( 'gulp-clip-empty-files' ),
+    combineMq:          require( 'gulp-combine-mq' ),
+    jsHint:             require( 'gulp-jshint' ),
+    cssNano:            require( 'gulp-cssnano' ),
+    uglify:             require( 'gulp-uglify' ),
+    sourcemaps:         require( 'gulp-sourcemaps' )
 };
 
 // =============================================
@@ -62,101 +62,89 @@ var environment = {
 };
 
 // =============================================
-// BROWSER SYNC `gulp browser-sync`
-// sync injection and auto reloads the browser
-// =============================================
-
-gulp.task('browser-sync', function() {
-    if(environment.dev) {
-        nodeModule.browserSync.init(null, {
-            proxy: project.name + project.developmentTLD,
-            open: false
-        });
-    }
-});
-
-// =============================================
 // FONTS `gulp fonts`
 // moves fonts to build directory
 // =============================================
 
-gulp.task('fonts', function() {
-    return gulp.src(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*')
-        .pipe(nodeModule.changed(project.distDirectory + '/' + project.fontsDirectory))
-        .pipe(gulp.dest(project.distDirectory + '/' + project.fontsDirectory));
-});
+gulp.task( 'fonts', function() {
+    return gulp.src( project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*' )
+        .pipe( nodeModule.changed(project.distDirectory + '/' + project.fontsDirectory ) )
+        .pipe( gulp.dest( project.distDirectory + '/' + project.fontsDirectory ) );
+} );
 
 // =============================================
 // IMG `gulp img`
 // minifys images
 // =============================================
 
-gulp.task('images', function() {
-    return gulp.src(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*')
-        .pipe(nodeModule.changed(project.distDirectory + '/' + project.imagesDirectory))
-        .pipe(environment.production ? nodeModule.imageMin(option.imageOptimisation) : nodeModule.util.noop())
-        .pipe(gulp.dest(project.distDirectory + '/' + project.imagesDirectory));
-});
+gulp.task( 'img', function() {
+    return gulp.src( project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*' )
+        .pipe( nodeModule.changed( project.distDirectory + '/' + project.imagesDirectory ) )
+        .pipe( environment.production ? nodeModule.imageMin( option.imageOptimisation ) : nodeModule.util.noop() )
+        .pipe( gulp.dest( project.distDirectory + '/' + project.imagesDirectory ) );
+} );
 
 // =============================================
 // JS `gulp js`
 // compiles js, Jshint, Minify if `--production`
 // =============================================
 
-gulp.task('js', function() {
-    return gulp.src(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js')
-        .pipe(nodeModule.jsHint())
-        .pipe(nodeModule.jsHint.reporter('default'))
-        .pipe(environment.production ? nodeModule.uglify() : nodeModule.util.noop())
-        .pipe(gulp.dest(project.distDirectory + '/' + project.scriptsDirectory))
-        .pipe(nodeModule.browserSync.reload({stream: true}));
-});
+gulp.task( 'js', function() {
+    return gulp.src( project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js' )
+        .pipe( nodeModule.jsHint() )
+        .pipe( nodeModule.jsHint.reporter( 'default' ) )
+        .pipe( environment.production ? nodeModule.uglify() : nodeModule.util.noop() )
+        .pipe( gulp.dest( project.distDirectory + '/' + project.scriptsDirectory ) );
+} );
 
 // =============================================
 // CSS `gulp css`
 // compiles scss to css, autoprefixer, combines media queries and minifies if `--production`
 // =============================================
 
-gulp.task('scss', function() {
-    return gulp.src(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss')
-        .pipe(nodeModule.clipEmptyFiles())
-        .pipe(environment.development ? nodeModule.sourcemaps.init() : nodeModule.util.noop())
-        .pipe(nodeModule.sass())
-        .pipe(nodeModule.autoPrefixer(option.autoprefixer))
-        .pipe(environment.development ? nodeModule.sourcemaps.write() : nodeModule.util.noop())
-        .pipe(environment.production ? nodeModule.combineMq() : nodeModule.util.noop())
-        .pipe(environment.production ? nodeModule.cssNano() : nodeModule.util.noop())
-        .pipe(gulp.dest(project.sourceDirectory + '/' + project.stylesDirectory))
-        .pipe(nodeModule.browserSync.reload({stream: true}));
-});
+gulp.task( 'scss', function() {
+    return gulp.src( project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss' )
+        .pipe( nodeModule.clipEmptyFiles() )
+        .pipe( environment.development ? nodeModule.sourcemaps.init() : nodeModule.util.noop() )
+        .pipe( nodeModule.sass())
+        .pipe( nodeModule.autoPrefixer( option.autoprefixer ) )
+        .pipe( environment.development ? nodeModule.sourcemaps.write() : nodeModule.util.noop() )
+        .pipe( environment.production ? nodeModule.combineMq() : nodeModule.util.noop() )
+        .pipe( environment.production ? nodeModule.cssNano() : nodeModule.util.noop() )
+        .pipe( gulp.dest( project.sourceDirectory + '/' + project.stylesDirectory ) );
+} );
 
 // =============================================
 // Clean `gulp clean
 // destroys the build directory
 // =============================================
 
-gulp.task('clean', function(cb) {
-    return nodeModule.del([project.distDirectory], cb);
-});
+gulp.task( 'clean', function( cb ) {
+    return nodeModule.del( [ project.distDirectory ], cb );
+} );
 
 // =============================================
 // Build 'gulp build'
 // builds all assets, also has `--production` option to build production ready assets
 // =============================================
 
-gulp.task('build', function(cb) {
-    nodeModule.runSequence('clean', 'scss', 'js', 'images', 'fonts', cb);
-});
+gulp.task( 'build', gulp.series( 'clean', gulp.parallel( 'scss', 'js', 'img', 'fonts' ) ) );
+
+// =============================================
+// Watch 'gulp watch'
+// watches files and runs on change
+// =============================================
+
+gulp.task( 'watch', function() {
+    gulp.watch( project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', gulp.series( 'scss' ) );
+    gulp.watch( project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', gulp.series( 'js' ) );
+    gulp.watch( project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', gulp.series( 'img' ) );
+    gulp.watch( project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*', gulp.series( 'fonts' ) );
+} );
 
 // =============================================
 // Default 'gulp'
-// runs build task, watches for changes and runs the associated task on change
+// runs build task, Runs watch tasks
 // =============================================
 
-gulp.task('default', function(cb) {
-    nodeModule.runSequence('build', 'browser-sync', cb);
-    gulp.watch(project.sourceDirectory + '/' + project.stylesDirectory + '/**/*.scss', ['scss']);
-    gulp.watch(project.sourceDirectory + '/' + project.scriptsDirectory + '/**/*.js', ['js']);
-    gulp.watch(project.sourceDirectory + '/' + project.imagesDirectory + '/**/*.*', ['img']);
-    gulp.watch(project.sourceDirectory + '/' + project.fontsDirectory + '/**/*.*', ['fonts']);
-});
+gulp.task( 'default', gulp.series( 'build', 'watch' ) );
